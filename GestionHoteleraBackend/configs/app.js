@@ -5,6 +5,7 @@ import express from 'express'
 import morgan from 'morgan' 
 import helmet from 'helmet' 
 import cors from 'cors' 
+import hotelRoutes from '../src/Hotel/hotel.routes.js'
 
 const configs = (app)=>{
     app.use(express.json()) //Aceptar y enviar datos en JSON
@@ -15,7 +16,7 @@ const configs = (app)=>{
 }
 
 const routes = (app)=>{
-   
+    app.use(hotelRoutes)
 }
 
 export const initServer = async()=>{
