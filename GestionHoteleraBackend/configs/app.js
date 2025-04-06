@@ -1,9 +1,9 @@
 'use strict'
 
-import express from 'express'
-import morgan from 'morgan'
-import helmet from 'helmet'
-import cors from 'cors'
+import express from 'express' 
+import morgan from 'morgan' 
+import helmet from 'helmet' 
+import cors from 'cors' 
 
 import authRoutes from '../src/auth/auth.routes.js'
 import userRoutes from '../src/user/user.routes.js'
@@ -16,9 +16,8 @@ const configs = (app) => {
   app.use(morgan('dev'))
 }
 
-const routes = (app) => {
-  app.use('/api/auth', authRoutes)
-  app.use('/api/users', userRoutes)
+const routes = (app)=>{
+   
 }
 
 export const initServer = async () => {
