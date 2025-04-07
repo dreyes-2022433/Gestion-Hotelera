@@ -8,6 +8,7 @@ import cors from 'cors'
 import authRoutes from '../src/auth/auth.routes.js'
 import userRoutes from '../src/user/user.routes.js'
 import reportRoutes from '../src/report/report.routes.js'
+import evetsRoutes from '../src/Events/events.routes.js'
 
 const configs = (app) => {
   app.use(express.json())
@@ -21,7 +22,7 @@ const routes = (app)=>{
   app.use(authRoutes)
   app.use('/v1/user', userRoutes)
   app.use('/v1/report', reportRoutes)
-
+  app.use('/v1/event', evetsRoutes)
    
 }
 
