@@ -9,6 +9,8 @@ import authRoutes from '../src/auth/auth.routes.js'
 import userRoutes from '../src/user/user.routes.js'
 import reportRoutes from '../src/report/report.routes.js'
 import evetsRoutes from '../src/Events/events.routes.js'
+import roomRoutes from '../src/Rooms/room.routes.js'
+import hotelRoutes from '../src/Hotel/hotel.routes.js'
 
 const configs = (app) => {
   app.use(express.json())
@@ -19,10 +21,12 @@ const configs = (app) => {
 }
 
 const routes = (app)=>{
-  app.use(authRoutes)
+  app.use('/api/auth', authRoutes)
   app.use('/v1/user', userRoutes)
   app.use('/v1/report', reportRoutes)
+  app.use('/v1/hotel', hotelRoutes)
   app.use('/v1/event', evetsRoutes)
+  app.use('/api/rooms', roomRoutes)
    
 }
 
