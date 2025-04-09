@@ -40,6 +40,10 @@ const hotelSchema = Schema(
         profilePicture : {
             type: String 
         },
+        status:{
+            type: Boolean,
+            default: false
+        },
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
