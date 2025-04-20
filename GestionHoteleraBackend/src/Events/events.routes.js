@@ -18,11 +18,6 @@ api.post(
     addService
 )
 
-api.post(
-    '/addGuest/:idEvent',
-    addGuest
-)
-
 api.delete(
     '/deleteEvent/:idEvent',
     deleteEvent
