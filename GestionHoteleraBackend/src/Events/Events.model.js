@@ -5,17 +5,13 @@ const eventSchema = new Schema(
         eventType: {
             type: String,
             required: [true, 'Event Type is required'],
-            maxLength: [50, 'Cannot exceed 50 characters']
+            maxLength: [50, 'Cannot exceed 50 characters'],
+            enum: ['CONFERENCE', 'BUSINESS MEETING', 'MARRIAGE', 'BIRTHDAY PARTY', 'ANNIVERSARY', 'BABY SHOWER', 'FAMILY REUNION', 'CULTURA FESTIVAL', 'RELIGIOUS EVENTS']
         },
         hotel: {
             type: Schema.Types.ObjectId,
             ref: 'Hotel',
             required: [true, 'Hotel ID is required']
-        },
-        room: {
-            type: String,
-            required: [true, 'Room is required'],
-            maxLength: [5, 'Cannot exceed 5 characters'] 
         },
         services: [{
             name: {
@@ -27,6 +23,11 @@ const eventSchema = new Schema(
                 type: Number,
                 required: [true, 'Price of the Service is required'],
                 min: [0, 'Price cannot be negative']
+            },
+            description: {
+                type: String,
+                required: true,
+                maxLength: [100, 'Cannot exceed 100 characters']
             }
         }],
         booker: {
@@ -34,10 +35,11 @@ const eventSchema = new Schema(
             ref: 'User',
             required: [true, 'Booker ID is required']
         },
-        guests: [{
-            type: Schema.Types.ObjectId,
-            ref: 'User'
-        }],
+        guests: {
+            type: Number,
+            required: true,
+            min: [0, 'Number of guests cannot be negative']
+        },
         status: {
             type: Boolean,
             default: true
