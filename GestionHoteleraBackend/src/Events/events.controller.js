@@ -27,14 +27,14 @@ export const getEvents = async(req, res)=>{
 
 export const addEvent = async(req, res)=>{
     try {
-        const { eventType, hotel, room, booker } = req.body
+        const { eventType, hotel, booker, guests } = req.body
 
         const event = new Event(
             {
                 eventType,
                 hotel,
-                room,
-                booker
+                booker,
+                guests
             }
         )
 
@@ -62,13 +62,13 @@ export const addEvent = async(req, res)=>{
 export const addService = async(req, res)=>{
     try {
         const { idEvent } = req.params
-        const { name, price } = req.body
+        const { name, price, description } = req.body
 
         const updatedEvent = await Event.findByIdAndUpdate(
             idEvent,
             {
                 $push: {
-                    services: { name, price }
+                    services: { name, price, description }
                 }
             },
             {
@@ -93,51 +93,6 @@ export const addService = async(req, res)=>{
                 updatedEvent
             }
         )
-    } catch (err) {
-        console.error(err)
-        return res.status(500).send(
-            {
-                status: false,
-                message: 'General Error',
-                err
-            }
-        )
-    }
-}
-
-export const addGuest = async(req, res)=>{
-    try {
-        const { idEvent } = req.params
-        const { idGuest } = req.body
-
-        const updatedEvent = await Event.findByIdAndUpdate(
-            idEvent,
-            {
-                $push: { guests: idGuest }
-            },
-            {
-                new: true,
-                runValidators: true
-            }
-        )
-
-        if(!updatedEvent){
-            return res.status(404).send(
-                {
-                    status: false,
-                    message: 'Event not found'
-                }
-            )
-        }
-
-        return res.send(
-            {
-                status: true,
-                message: 'Guest added successfully',
-                updatedEvent
-            }
-        )
-
     } catch (err) {
         console.error(err)
         return res.status(500).send(
@@ -187,7 +142,7 @@ export const updateEvent = async(req, res) => {
                 eventType,
                 hotel,
                 room,
-                booker,
+                guests,
                 status
             },
             {
