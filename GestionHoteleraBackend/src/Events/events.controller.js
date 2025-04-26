@@ -1,4 +1,4 @@
-import Event from "./events.model.js"
+import Event from "./Events.model.js"
 import User from "../user/user.model.js"
 import Hotel from "../Hotel/hotel.model.js"
 

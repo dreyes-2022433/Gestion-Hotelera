@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { addEvent, addGuest, addService, deleteEvent, getEvents, updateEvent } from "./events.controller.js"
+import { addEvent, addService, deleteEvent, getEvents, updateEvent } from "./events.controller.js"
 
 const api = Router()
 
