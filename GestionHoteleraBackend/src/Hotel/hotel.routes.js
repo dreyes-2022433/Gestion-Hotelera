@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { validRegisterHotel, validUpdateHotel } from '../../helpers/validators.js'
 import { deleteHotel, getAllHotels, getHotelByName, getOneHotel, hotelRegister, updateHotel } from './hotel.controller.js'
 
 const api = Router()
@@ -7,7 +8,11 @@ const api = Router()
 
 //Agregar Hotel
 api.post(
-    '/register', hotelRegister
+    '/register', 
+    [
+        validRegisterHotel
+    ],  
+    hotelRegister
 )
 
 //Listar Hoteles
@@ -31,6 +36,9 @@ api.get(
 //Actualizar Hotel
 api.put(
     '/:id',
+    [
+        validUpdateHotel
+    ],
     updateHotel
 )
 
