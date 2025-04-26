@@ -168,7 +168,7 @@ export const deleteHotel = async(req, res)=>{
         if(!hotel) return res.status(404).send(
             {
                 success: false,
-                message: 'Product not found'
+                message: 'Hotel not found'
             }
         )
         await hotel.save()
@@ -176,7 +176,7 @@ export const deleteHotel = async(req, res)=>{
         return res.send(
             {
                 success: true,
-                message: 'Product deleted successfully'
+                message: 'Hotel deleted successfully'
             }
         )
     } catch (err) {
