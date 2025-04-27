@@ -108,3 +108,38 @@ export const validUpdateEvent = [
         .notEmpty(),
     validateErrorWithoutImg
 ]
+
+/*----------------------------- RESERVATION -------------------------------------*/
+
+export const validRegisterReservation = [
+    body('type', 'Reservation type cannot be empty')
+        .notEmpty()
+        .isIn(['Habitacion', 'Hotel']).withMessage('Reservation type must be valid'),
+    body('user', 'User cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
+    body('startDate', 'Start date cannot be empty')
+        .notEmpty()
+        .isISO8601().withMessage('Start date must be a valid date'),
+    
+    body('endDate', 'End date cannot be empty')
+        .notEmpty()
+        .isISO8601().withMessage('End date must be a valid date'),
+    body('description', 'Description cannot be empty')
+        .notEmpty()
+        .isLength({ max: 300 }).withMessage('Description cannot be longer than 300 characters'),
+    validateErrorWithoutImg
+]
+
+export const validUpdateReservation = [
+    body('startDate', 'Start date cannot be empty')
+        .optional()
+        .isISO8601().withMessage('Start date must be a valid date'),
+    body('endDate', 'End date cannot be empty')
+        .optional()
+        .isISO8601().withMessage('End date must be a valid date'),
+    body('description', 'Description cannot be empty')
+        .optional()
+        .isLength({ max: 300 }).withMessage('Description cannot be longer than 300 characters'),
+    validateErrorWithoutImg
+]
