@@ -29,7 +29,7 @@ export const addEvent = async(req, res)=>{
     try {
         const { eventType, hotel, booker, guests } = req.body
 
-        const event = new Event(
+        const addEvent = new Event(
             {
                 eventType,
                 hotel,
@@ -38,13 +38,31 @@ export const addEvent = async(req, res)=>{
             }
         )
 
-        await event.save()
+        hotelExist = await Hotel.findById(hotel)
+        
+        if(!hotelExist){
+            return res.status(404).send({
+                status: false,
+                message: 'Hotel not found'
+            })
+        }
 
-        return res.status(201).send(
+        bookerExist = await User.findById(booker)
+
+        if(!bookerExist){
+            return res.status(404).send({
+                status: false,
+                message: 'Booker not found'
+            })
+        }
+
+        await addEvent.save()
+
+        return res.send(
             {
                 status: true,
                 message: 'Event booked successfully',
-                event
+                addEvent
             }
         )
     } catch (err) {
@@ -119,13 +137,12 @@ export const deleteEvent = async(req, res)=>{
         )
     }
 
-    event.status = false
-    event.save
+    await Event.findByIdAndDelete(idEvent)
 
     return res.send(
         {
             status: true,
-            message: 'Evente desactivated successfully',
+            message: 'Event desactivated successfully',
             event
         }
     )
@@ -134,14 +151,14 @@ export const deleteEvent = async(req, res)=>{
 export const updateEvent = async(req, res) => {
     try {
         const { idEvent } = req.params
-        const { eventType, hotel, room, booker, status } = req.body
+        const { eventType, hotel, booker, guests, status } = req.body
 
         const updatedEvent = await Event.findByIdAndUpdate(
             idEvent,
             {
                 eventType,
                 hotel,
-                room,
+                booker,
                 guests,
                 status
             },
@@ -150,7 +167,25 @@ export const updateEvent = async(req, res) => {
             }
         )
 
-        if (!updatedEvent) {
+        hotelExist = await Hotel.findById(hotel)
+        
+        if(!hotelExist){
+            return res.status(404).send({
+                status: false,
+                message: 'Hotel not found'
+            })
+        }
+
+        bookerExist = await User.findById(booker)
+
+        if(!bookerExist){
+            return res.status(404).send({
+                status: false,
+                message: 'Booker not found'
+            })
+        }
+
+        if(!updatedEvent){
             return res.status(404).send({
                 status: false,
                 message: 'Event not found'
