@@ -1,4 +1,6 @@
-import { Router } from 'express'
+import { Router } from 'express';
+import { validUpdateUser } from '../../helpers/validators.js';
+import { validateJwt, isAdmin } from '../../middlewares/validate.jwt.js';
 import {
   getUserProfile,
   updateUserProfile,
@@ -12,15 +14,52 @@ import {
 
 const api = Router()
 
+api.get(
+  '/me/:id',
+  [validateJwt], 
+  getUserProfile
+)
 
-api.get('/me/:id', getUserProfile)
-api.put('/me/:id', updateUserProfile)
-api.delete('/me/:id', deleteUserAccount)
+api.put(
+  '/me/:id',
+  [validateJwt, validUpdateUser],
+  updateUserProfile
+)
 
-api.get('/', getAllUsers)
-api.get('/:id', getUserById)
-api.put('/:id', updateUserById)
-api.delete('/:id', deleteUserById)
-api.put('/:id/role', changeUserRole)
+api.delete(
+  '/me/:id',
+  [validateJwt],
+  deleteUserAccount
+)
+
+api.get(
+  '/',
+  [validateJwt, isAdmin],
+  getAllUsers
+)
+
+api.get(
+  '/:id',
+  [validateJwt, isAdmin],
+  getUserById
+)
+
+api.put(
+  '/:id',
+  [validateJwt, isAdmin, validUpdateUser],
+  updateUserById
+)
+
+api.delete(
+  '/:id',
+  [validateJwt, isAdmin],
+  deleteUserById
+)
+
+api.put(
+  '/:id/role',
+  [validateJwt, isAdmin],
+  changeUserRole
+)
 
 export default api
