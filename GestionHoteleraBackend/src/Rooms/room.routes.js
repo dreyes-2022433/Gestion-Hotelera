@@ -1,4 +1,6 @@
-import { Router } from 'express'
+import { Router } from 'express';
+import { validRegisterRoom, validUpdateRoom } from '../../helpers/validators.js';
+import { validateJwt, isAdmin } from '../../middlewares/validate.jwt.js';
 import {
   createRoom,
   getRooms,
@@ -9,10 +11,32 @@ import {
 
 const api = Router()
 
-api.post('/', createRoom)
-api.get('/', getRooms)
-api.get('/:id', getRoomById)
-api.put('/:id', updateRoom)
-api.delete('/:id', deleteRoom)
+api.post(
+  '/',
+  [validateJwt, isAdmin, validRegisterRoom],
+  createRoom
+)
+
+api.get(
+  '/',
+  getRooms
+)
+
+api.get(
+  '/:id',
+  getRoomById
+)
+
+api.put(
+  '/:id',
+  [validateJwt, isAdmin, validUpdateRoom],
+  updateRoom
+)
+
+api.delete(
+  '/:id',
+  [validateJwt, isAdmin],
+  deleteRoom
+)
 
 export default api
