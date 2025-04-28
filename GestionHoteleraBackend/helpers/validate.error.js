@@ -1,7 +1,7 @@
 //Validar errores
 import { validationResult } from "express-validator"
 
-//Para cuando hat imagenes
+//Para cuando hay imagenes
 export const validateErrors = (req, res, next)=>{
     const errors = validationResult(req)
     if(!errors.isEmpty()){
