@@ -7,10 +7,15 @@ import {
   deleteReservation 
 } from './reservation.controller.js'
 
+import {validRegisterReservation, validUpdateReservation} from '../../helpers/validators.js'
+
 const api = Router()
 
 api.post(
     '/register', 
+    [   
+        validRegisterReservation
+    ],
     registerReservation
 )
 
@@ -26,6 +31,9 @@ api.get(
 
 api.put(
     '/:id', 
+    [
+        validUpdateReservation
+    ],
     updateReservation
 )
 
