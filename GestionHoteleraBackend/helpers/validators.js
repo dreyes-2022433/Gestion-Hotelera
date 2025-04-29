@@ -53,31 +53,6 @@ export const validUpdateHotel = [
     validateErrorWithoutImg
 ]
 
-export const validUpdateEvent = [
-    body('eventType', 'Event Type cannot be empty')
-        .optional()
-        .notEmpty()
-        .isIn(['CONFERENCE', 'BUSINESS MEETING', 'MARRIAGE', 'BIRTHDAY PARTY', 'ANNIVERSARY', 'BABY SHOWER', 'FAMILY REUNION', 'CULTURA FESTIVAL', 'RELIGIOUS EVENTS'])
-        .withMessage('Event type must be valid'),
-    body('hotel', 'Hotel cannot be empty')
-        .optional()
-        .notEmpty()
-        .custom(objectIdValid),
-    body('booker', 'Booker cannot be empty')
-        .optional()
-        .notEmpty()
-        .custom(objectIdValid),
-    body('guests', 'Guests cannot be empty')
-        .optional()
-        .notEmpty()
-        .isInt({ min: 0 })
-        .withMessage('Guests cannot be negative'),
-    body('status', 'Status cannot be empty')
-        .optional()
-        .notEmpty(),
-    validateErrorWithoutImg
-]
-
 /*----------------------------- RESERVATION -------------------------------------*/
 
 export const validRegisterReservation = [
@@ -238,5 +213,67 @@ export const validUpdateRoom = [
     body('description', 'Description is optional and must be between 10 and 500 characters')
         .optional()
         .isLength({ min: 10, max: 500 }),
+    validateErrorWithoutImg
+]
+
+/*----------------------------- EVENT -------------------------------------*/
+export const validAddEvent = [
+    body('eventType', 'Event Type cannot be empty')
+        .notEmpty()
+        .isIn(['CONFERENCE', 'BUSINESS MEETING', 'MARRIAGE', 'BIRTHDAY PARTY', 'ANNIVERSARY', 'BABY SHOWER', 'FAMILY REUNION', 'CULTURA FESTIVAL', 'RELIGIOUS EVENTS'])
+        .withMessage('Event type must be valid'),
+    body('hotel', 'Hotel cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
+    body('booker', 'Booker cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
+    body('guests', 'Guests cannot be empty')
+        .notEmpty()
+        .isInt({ min: 0 })
+        .withMessage('Guests cannot be negative'),
+    validateErrorWithoutImg
+]
+
+export const validAddService = [
+    body('name', 'Name cannot be empty')
+        .notEmpty(),
+    body('price', 'Price cannot be empty')
+        .notEmpty()
+        .isInt({ min: 0 })
+        .withMessage('Price cannot be negative'),
+    body('description', 'Description cannot be empty')
+        .notEmpty(),
+    validateErrorWithoutImg
+]
+
+export const validDeleteService = [
+    body('name', 'Name cannot be empty')
+        .notEmpty(),
+    validateErrorWithoutImg
+]
+
+export const validUpdateEvent = [
+    body('eventType', 'Event Type cannot be empty')
+        .optional()
+        .notEmpty()
+        .isIn(['CONFERENCE', 'BUSINESS MEETING', 'MARRIAGE', 'BIRTHDAY PARTY', 'ANNIVERSARY', 'BABY SHOWER', 'FAMILY REUNION', 'CULTURA FESTIVAL', 'RELIGIOUS EVENTS'])
+        .withMessage('Event type must be valid'),
+    body('hotel', 'Hotel cannot be empty')
+        .optional()
+        .notEmpty()
+        .custom(objectIdValid),
+    body('booker', 'Booker cannot be empty')
+        .optional()
+        .notEmpty()
+        .custom(objectIdValid),
+    body('guests', 'Guests cannot be empty')
+        .optional()
+        .notEmpty()
+        .isInt({ min: 0 })
+        .withMessage('Guests cannot be negative'),
+    body('status', 'Status cannot be empty')
+        .optional()
+        .notEmpty(),
     validateErrorWithoutImg
 ]
