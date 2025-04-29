@@ -150,3 +150,93 @@ export const validUpdateFactura = [
         .custom(objectIdValid),
     validateErrorWithoutImg
 ]
+
+/*----------------------------- USER -------------------------------------*/
+export const validRegisterUser = [
+    body('name', 'Name cannot be empty and must not exceed 25 characters')
+        .notEmpty()
+        .isLength({ max: 25 }),
+    body('surname', 'Surname cannot be empty and must not exceed 25 characters')
+        .notEmpty()
+        .isLength({ max: 25 }),
+    body('username', 'Username cannot be empty and must not exceed 25 characters')
+        .notEmpty()
+        .isLength({ max: 25 }),
+    body('email', 'Email cannot be empty and must not exceed 50 characters')
+        .notEmpty()
+        .isLength({ max: 50 }),
+    body('phone', 'Phone cannot be empty and must not exceed 15 characters')
+        .notEmpty()
+        .isLength({ max: 15 }),
+    body('password', 'Password must be at least 8 characters long')
+        .notEmpty()
+        .isLength({ min: 8 }),
+    body('role', 'Role must be CLIENT or ADMIN')
+        .notEmpty()
+        .isIn(['CLIENT', 'ADMIN']),
+    validateErrorWithoutImg
+]
+
+export const validUpdateUser = [
+    body('name', 'Name must not exceed 25 characters')
+        .optional()
+        .isLength({ max: 25 }),
+    body('surname', 'Surname must not exceed 25 characters')
+        .optional()
+        .isLength({ max: 25 }),
+    body('username', 'Username must not exceed 25 characters')
+        .optional()
+        .isLength({ max: 25 }),
+    body('email', 'Email must not exceed 50 characters')
+        .optional()
+        .isLength({ max: 50 }),
+    body('phone', 'Phone must not exceed 15 characters')
+        .optional()
+        .isLength({ max: 15 }),
+    body('password', 'Password must be at least 8 characters long')
+        .optional()
+        .isLength({ min: 8 }),
+    body('role', 'Role must be CLIENT or ADMIN')
+        .optional()
+        .isIn(['CLIENT', 'ADMIN']),
+    validateErrorWithoutImg
+]
+
+/*----------------------------- ROOM -------------------------------------*/
+export const validRegisterRoom = [
+    body('number', 'Room number cannot be empty and must not exceed 10 characters')
+        .notEmpty()
+        .isLength({ max: 10 }),
+    body('capacity', 'Capacity must be a number between 1 and 20')
+        .notEmpty()
+        .isInt({ min: 1, max: 20 }),
+    body('stars', 'Stars must be between 1 and 5')
+        .notEmpty()
+        .isIn(['1', '2', '3', '4', '5']),
+    body('price', 'Price must be a positive number and can have up to 2 decimals')
+        .notEmpty()
+        .matches(/^\d+(\.\d{1,2})?$/),
+    body('description', 'Description must be between 10 and 500 characters')
+        .notEmpty()
+        .isLength({ min: 10, max: 500 }),
+    validateErrorWithoutImg
+]
+
+export const validUpdateRoom = [
+    body('number', 'Room number is optional but must not exceed 10 characters')
+        .optional()
+        .isLength({ max: 10 }),
+    body('capacity', 'Capacity is optional and must be a number between 1 and 20')
+        .optional()
+        .isInt({ min: 1, max: 20 }),
+    body('stars', 'Stars is optional but must be between 1 and 5')
+        .optional()
+        .isIn(['1', '2', '3', '4', '5']),
+    body('price', 'Price is optional, must be positive and can have up to 2 decimals')
+        .optional()
+        .matches(/^\d+(\.\d{1,2})?$/),
+    body('description', 'Description is optional and must be between 10 and 500 characters')
+        .optional()
+        .isLength({ min: 10, max: 500 }),
+    validateErrorWithoutImg
+]
