@@ -1,13 +1,11 @@
-
-
+import User from '../src/user/user.model.js'
+import { isValidObjectId } from 'mongoose'
 
 export const objectIdValid = async(objectId) => {
     if(!isValidObjectId(objectId)){
         throw new Error('Is not a valid ObjectId')
     }
 }
-import User from '../src/user/user.model.js'
-import { isValidObjectId } from 'mongoose'
 
 // Verificar si el username ya existe
 export const existUsername = async (username = '') => {
