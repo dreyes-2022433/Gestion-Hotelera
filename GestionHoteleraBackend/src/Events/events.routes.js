@@ -1,5 +1,6 @@
 import { Router } from "express"
-import { addEvent, addService, deleteEvent, getEvents, updateEvent } from "./events.controller.js"
+import { addEvent, addService, deleteEvent, deleteService, getEvents, updateEvent } from "./events.controller.js"
+import { validAddEvent, validAddService, validDeleteService, validUpdateEvent } from "../../helpers/validators.js"
 
 
 const api = Router()
@@ -12,7 +13,7 @@ api.get(
 api.post(
     '/addEvent',
     [
-        
+        validAddEvent
     ],
     addEvent
 )
@@ -20,9 +21,17 @@ api.post(
 api.post(
     '/addService/:idEvent',
     [
-        
+        validAddService
     ],
     addService
+)
+
+api.delete(
+    '/deleteService/:idEvent',
+    [
+        validDeleteService
+    ],
+    deleteService
 )
 
 api.delete(
@@ -33,7 +42,7 @@ api.delete(
 api.put(
     '/udpateEvent/:idEvent',
     [
-        
+        validUpdateEvent
     ],
     updateEvent
 )
