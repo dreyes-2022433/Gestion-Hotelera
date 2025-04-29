@@ -143,3 +143,41 @@ export const validUpdateReservation = [
         .isLength({ max: 300 }).withMessage('Description cannot be longer than 300 characters'),
     validateErrorWithoutImg
 ]
+
+/*--------------------------------------FACTURA--------------------------- */
+
+export const validFactura = [
+    body('user', 'User cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
+    body('hotel', 'Hotel cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
+    body('event', 'Event cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
+    body('reservation', 'Reservation cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
+    validateErrorWithoutImg
+]
+
+export const validUpdateFactura = [
+    body('user', 'User cannot be empty')
+        .optional()
+        .notEmpty()
+        .custom(objectIdValid),
+    body('hotel', 'Hotel cannot be empty')
+        .optional()
+        .notEmpty()
+        .custom(objectIdValid),
+    body('event', 'Event cannot be empty')
+        .optional()
+        .notEmpty()
+        .custom(objectIdValid),
+    body('reservation', 'Reservation cannot be empty')
+        .optional()
+        .notEmpty()
+        .custom(objectIdValid),
+    validateErrorWithoutImg
+]
