@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { validRegisterRoom, validUpdateRoom } from '../../helpers/validators.js';
+
 import { validateJwt, isAdmin } from '../../middlewares/validate.jwt.js';
 import {
   createRoom,
@@ -13,7 +13,7 @@ const api = Router()
 
 api.post(
   '/',
-  [validateJwt, isAdmin, validRegisterRoom],
+  [validateJwt, isAdmin,],
   createRoom
 )
 
@@ -29,7 +29,7 @@ api.get(
 
 api.put(
   '/:id',
-  [validateJwt, isAdmin, validUpdateRoom],
+  [validateJwt, isAdmin, ],
   updateRoom
 )
 

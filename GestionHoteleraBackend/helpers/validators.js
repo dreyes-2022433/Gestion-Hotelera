@@ -1,5 +1,6 @@
 import { body } from "express-validator";
 import { validateErrorWithoutImg } from "./validate.error.js";
+import { objectIdValid } from "./db.validators.js";
 
 /*----------------------------- HOTEL -------------------------------------*/
 export const validRegisterHotel = [

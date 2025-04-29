@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { validUpdateUser } from '../../helpers/validators.js';
 import { validateJwt, isAdmin } from '../../middlewares/validate.jwt.js';
 import {
   getUserProfile,
@@ -10,7 +9,8 @@ import {
   updateUserById,
   deleteUserById,
   changeUserRole
-} from './user.controller.js'
+} 
+from './user.controller.js'
 
 const api = Router()
 
@@ -22,7 +22,7 @@ api.get(
 
 api.put(
   '/me/:id',
-  [validateJwt, validUpdateUser],
+  [validateJwt],
   updateUserProfile
 )
 
@@ -46,7 +46,7 @@ api.get(
 
 api.put(
   '/:id',
-  [validateJwt, isAdmin, validUpdateUser],
+  [validateJwt, isAdmin],
   updateUserById
 )
 
