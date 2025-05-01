@@ -4,13 +4,6 @@ export const createFacture = async (req, res) => {
     try {
         const { user, hotel, event, totalAmount, paymentStatus } = req.body
 
-        // Validate required fields
-        if (!user || !hotel || !event || totalAmount === undefined) {
-            return res.status(400).send({
-                success: false,
-                message: 'Missing required fields'
-            })
-        }
 
         const facture = new Facture({
             user,

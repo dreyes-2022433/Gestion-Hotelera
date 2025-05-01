@@ -12,6 +12,7 @@ import evetsRoutes from '../src/Events/events.routes.js'
 import roomRoutes from '../src/Rooms/room.routes.js'
 import hotelRoutes from '../src/Hotel/hotel.routes.js'
 import reservationRoutes from '../src/reservations/reservation.routes.js'
+import factureRoutes from '../src/Facture/facture.routes.js'
 
 const configs = (app) => {
   app.use(express.json())
@@ -29,6 +30,7 @@ const routes = (app)=>{
   app.use('/v1/event', evetsRoutes)
   app.use('/api/rooms', roomRoutes)
   app.use('/v1/reservations', reservationRoutes)
+  app.use('/v1/facture', factureRoutes)
    
 }
 

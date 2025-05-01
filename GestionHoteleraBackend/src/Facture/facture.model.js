@@ -15,7 +15,11 @@ const factureSchema = Schema(
         event: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Event',
-            required: [true, 'Event ID is required']
+            
+        },
+        room : {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Room',  
         },
         totalAmount: {
             type: Number,

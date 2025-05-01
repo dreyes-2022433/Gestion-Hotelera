@@ -35,6 +35,10 @@ const eventSchema = new Schema(
             ref: 'User',
             required: [true, 'Booker ID is required']
         },
+        initialValue: {
+            type: Number,
+            required: [true, 'Initial Value is required'],
+        },
         guests: {
             type: Number,
             required: true,
