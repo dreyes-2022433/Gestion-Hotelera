@@ -4,20 +4,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: none;
+    font-family: 'Poppins', sans-serif;
+    color: white;
 }
 
 .login-container, .register-container {
     width: 500px;
     margin: 0 auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #d4af37;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     height: auto;
-    box-shadow: 10px 10px 10px #0b336b;
-    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    background-color: transparent;
 }
 
 .register-container {
@@ -32,57 +36,83 @@
 }
 
 .auth-form input {
-    margin: 5px 0;
-    padding: 5px;
+    margin: 6px 0;
+    padding: 12px;
     width: 400px;
+    border: 1px solid #d4af37;
+    color: white;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 15px;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+}
+
+.auth-form input::placeholder {
+    color: #ccc;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: #a88e2c;
 }
 
 .auth-form button {
     cursor: pointer;
-    background-color: #0b336b; /* Twitch Purple */
-    color: #fff;
+    background-color: #d4af37;
+    color: white;
     border: none;
     border-radius: 8px;
     width: 410px;
-    height: 30px;
-    font-weight: 500;
+    height: 40px;
+    font-weight: 600;
     margin-top: 20px;
-    transition: 0.3s;
-    line-height: 10px;
+    transition: background-color 0.3s ease;
+    font-size: 15px;
 }
 
 .auth-form button:hover {
-    opacity: 0.8;
+    background-color: #b4912e;
 }
 
 .auth-form button:disabled {
-    opacity: 0.3;
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .auth-form-label {
     width: 410px;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
 }
 
 .auth-form-logo-container {
-    font-size: 26px;
+    font-size: 30px;
     font-weight: bold;
+    color: #d4af37;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .auth-form-switch-label {
-    color: #2b7df0;
-    font-weight: bold;
+    color: #d4af37;
+    font-weight: 500;
     font-size: 14px;
     transition: 0.3s;
     cursor: pointer;
-    padding-top: 10px;
+    padding-top: 12px;
+    text-decoration: underline;
 }
 
 .auth-form-switch-label:hover {
-    opacity: 0.8;
+    color: #b4912e;
 }
 
 .auth-form-validation-message {
     width: 400px;
-    color: red;
+    color: #ff4d4d;
+    font-size: 13px;
+    margin-top: 5px;
 }
