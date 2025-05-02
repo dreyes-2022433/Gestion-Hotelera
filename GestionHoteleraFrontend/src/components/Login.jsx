@@ -83,7 +83,7 @@ return(
                         onChangeHandler={handleValueChange}
                         onBlurHandler={handleValidationOnBlur}
                         showErrorMessage={formData.email.showError}
-                        validationMessage={'El nombre debe tener entre 3 y 8 caracteres (Sin espacios)'}
+                        validationMessage={'Debe ser un email valido'}
                         />
                     <Input 
                         field='password'
@@ -93,7 +93,7 @@ return(
                         onChangeHandler={handleValueChange}
                        onBlurHandler={handleValidationOnBlur}
                         showErrorMessage={formData.password.showError}
-                        validationMessage={'El apellido debe tener entre 3 y 8 caracteres (Sin espacios)'}
+                        validationMessage={'La contraseña debe ser valida'}
                     
                     />  
                     <button type="submit" disabled={isSubmitButtonDisabled} >Logearte</button>
