@@ -51,6 +51,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: [true, 'Role is required'],
             uppercase: true,
+            default: 'CLIENT',
             enum: ['ADMIN', 'CLIENT']
         }
     }
