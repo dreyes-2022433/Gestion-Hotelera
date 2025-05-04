@@ -14,8 +14,10 @@ export const registerRequest = async (user) => {
             type: 'multipart/form-data',
         })
     }catch (error) {
-        toast.error('Error registering user:', error)
-        throw error
+        return {
+            error: true,
+            error
+        }
     }
 }
 
@@ -25,7 +27,9 @@ export const loginRequest = async (user) => {
             type: 'multipart/form-data',
         })
     }catch (error) {
-        toast.error('Error logging in user:', error)
-        throw error
+        return {
+            error: true,
+            error
+        }
     }
 }

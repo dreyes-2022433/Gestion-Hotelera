@@ -7,7 +7,7 @@ import { Login } from '../components/Login'
 
 //Componente exportado por Named (Quiero tener más componentes en un archivo)
 export const AuthPage = () => {
-    const [isLogin, setIsLogin] = useState(false)
+    const [isLogin, setIsLogin] = useState(true)
     const handleIsLogin = ()=>{
         setIsLogin((prev)=> !prev)
     } 

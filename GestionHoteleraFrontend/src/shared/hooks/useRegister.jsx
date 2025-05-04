@@ -21,15 +21,15 @@ setIsLoading(true)
         setIsLoading(false)
       if(response.error){
         setError(true)
-        if(response?.err?.response?.data?.errors){
-            let arrayErrors = response?.err?.response?.data?.errors
+        if(response?.error?.response?.data?.errors){
+            let arrayErrors = response?.error?.response?.data?.errors
             for (const error of arrayErrors) {
-                return toast.error(error.msg)
+                return toast.error(error.message)
             }
         }
         return toast.error(
-            response?.err?.response?.data?.msg ||
-            response?.err?.data?.msg ||
+            response?.error?.response?.data?.message ||
+            response?.error?.data?.message ||
             'Error general al intentar registrar al usuario. Intenta de nuevo'
         )
       }
