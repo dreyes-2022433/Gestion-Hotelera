@@ -145,10 +145,8 @@ export const validRegisterUser = [
         .isLength({ max: 15 }),
     body('password', 'Password must be at least 8 characters long')
         .notEmpty()
-        .isLength({ min: 8 }),
-    body('role', 'Role must be CLIENT or ADMIN')
-        .notEmpty()
-        .isIn(['CLIENT', 'ADMIN']),
+        .isLength({ min: 8 }).matches(/^(?=.*[A-Z])(?=.*\d).+$/)
+        .withMessage('Password must contain at least one uppercase letter and one number'),
     validateErrorWithoutImg
 ]
 

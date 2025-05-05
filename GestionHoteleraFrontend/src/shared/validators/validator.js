@@ -12,7 +12,7 @@ export const validatePhone = (phone)=>{
 
 /* ----------------- VALIDACIÓN DE NOMBRE DE USUARIO --------- */
 export const validateUsername = (username)=>{
-    const regex = /^\S{3,8}$/
+    const regex = /^\S{3,15}$/
     return regex.test(username)
 }
 /* ----------------- VALIDACIÓN DE NOMBRE DE USUARIO --------- */
@@ -23,7 +23,7 @@ export const validateName = (name)=>{
 
 /* ----------------- VALIDACIÓN DE CONTRASEÑA ------------- */
 export const validatePassword = (password)=>{
-    const regex = /^\S{6,12}$/
+    const regex = /^\S{6,16}$/
     return regex.test(password)
 }
 /* ----------------- VALIDACIÓN DE CONTRASEÑA ------------- */

@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 // Registro de usuario
 export const register = async (req, res) => {
   try {
-    const { name, surname, username, email, password, phone, role } = req.body
+    const { name, surname, username, email, password, phone,  } = req.body
 
     const hashedPassword = await argon2.hash(password)
 
@@ -16,8 +16,7 @@ export const register = async (req, res) => {
       email,
       password: hashedPassword,
       phone,
-      role: role?.toUpperCase() || 'CLIENT',
-      profilePicture: req.file?.path || ''
+      
     })
 
     await user.save()

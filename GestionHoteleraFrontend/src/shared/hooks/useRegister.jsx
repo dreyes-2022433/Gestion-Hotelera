@@ -24,7 +24,7 @@ setIsLoading(true)
         if(response?.error?.response?.data?.errors){
             let arrayErrors = response?.error?.response?.data?.errors
             for (const error of arrayErrors) {
-                return toast.error(error.message)
+                return toast.error(JSON.stringify(error.msg))
             }
         }
         return toast.error(
