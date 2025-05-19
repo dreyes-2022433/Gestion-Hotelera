@@ -1,0 +1,28 @@
+.homepage-container {
+  min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://images5.alphacoders.com/349/349822.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    color: white;
+    text-align: center;
+  }
+  
+  .homepage-header {
+    background-color: rgba(0, 0, 0, 0.5); 
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .homepage-header h1 {
+    font-size: 3em;
+    
+  }
+  
+  .homepage-header p {
+    font-size: 1.5em;
+  }

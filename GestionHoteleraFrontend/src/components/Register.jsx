@@ -69,8 +69,6 @@ export const Register = ({handleIsLogin}) => {
             formData.email.value,
             formData.password.value,
             formData.phone.value,
-            
-
     
         )
     }
