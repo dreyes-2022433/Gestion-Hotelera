@@ -1,11 +1,13 @@
 import React from "react"
-
+import { HotelList } from "../components/Hotel/HotelList"
 
 export const HotelPage = ()=> {
-
     return (
         <>
-        <h1>Just some random text for testing stuff</h1>
+        <div className="hotels-container">
+            <h1>Hoteles</h1>
+            <HotelList />
+        </div>
         </>
     )
 
