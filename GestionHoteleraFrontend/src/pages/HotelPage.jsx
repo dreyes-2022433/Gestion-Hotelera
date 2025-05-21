@@ -5,7 +5,6 @@ export const HotelPage = ()=> {
     return (
         <>
         <div className="hotels-container">
-            <h1>Hoteles</h1>
             <HotelList />
         </div>
         </>
