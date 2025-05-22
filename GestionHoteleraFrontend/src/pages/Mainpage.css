@@ -38,3 +38,17 @@ nav a.active {
   background-color: #ffd700; 
   color: black;
 }
+
+.logout-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 1em;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+}

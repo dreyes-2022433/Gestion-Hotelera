@@ -34,3 +34,19 @@ export const loginRequest = async (user) => {
         }
     }
 }
+
+export const createHotel = async (hotelData) => {
+  try {
+    return await api.post('/v1/hotel/register', hotelData)
+  } catch (error) {
+    return { error: true, error }
+  }
+}
+
+export const deleteHotel = async (hotelId) => {
+  try {
+    return await api.delete(`/v1/hotel/${hotelId}`)
+  } catch (error) {
+    return { error: true, error }
+  }
+}
