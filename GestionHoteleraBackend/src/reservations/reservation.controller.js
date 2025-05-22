@@ -1,4 +1,5 @@
 import Reservation from './reservation.model.js'
+import User from '../user/user.model.js'
 
 export const registerReservation = async (req, res) => {
     try {
@@ -169,3 +170,51 @@ export const deleteReservation = async (req, res) => {
     }
 }
 
+export const getUsersReservations = async(req, res) => {
+    try {
+        const { idUser } = req.body
+
+        const user = await User.findById(idUser)
+
+        if(!user){
+            return res.status(404).send(
+                {
+                    success: false,
+                    message: 'User not found'
+                }
+            )
+        }
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const reservations = await Reservation.find({ user: idUser, endDate: { $gte: today } }).populate('user', 'name email')
+
+        if (reservations.length === 0) {
+            return res.status(404).send(
+                {
+                    success: false,
+                    message: 'No reservations found for this user'
+                }
+            )
+        }
+
+        return res.send(
+            {
+                success: true,
+                message: 'Reservations found',
+                reservations
+            }
+        )
+
+    } catch (err) {
+        console.error(err)
+        return res.status(500).send(
+            {
+                success: false,
+                message: 'General Error',
+                err
+            }
+        )
+    }
+}
