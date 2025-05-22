@@ -1,35 +1,21 @@
 import Facture from './facture.model.js'
 
-export const createFacture = async (req, res) => {
-    try {
-        const { user, hotel, event, totalAmount, paymentStatus } = req.body
+export const generateFacture = async (req, res) => {
+const { user, hotel, event, room, description, additionalServices, totalAmount, totalValue, paymentStatus } = req.body      
+    try {   
+            
 
 
-        const facture = new Facture({
-            user,
-            hotel,
-            event,
-            totalAmount,
-            paymentStatus
-        })
 
-        await facture.save()
-
-        return res.status(201).send({
-            success: true,
-            message: 'Facture created successfully',
-            facture
-        })
-    } catch (err) {
+    }catch (err) {
         console.error(err)
         return res.status(500).send({
             success: false,
-            message: 'Error creating facture',
+            message: 'Error generating facture',
             err
         })
     }
 }
-
 export const getFactureById = async (req, res) => {
     const { id } = req.params
 

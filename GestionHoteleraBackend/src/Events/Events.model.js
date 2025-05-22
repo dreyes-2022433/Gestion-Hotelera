@@ -13,6 +13,26 @@ const eventSchema = new Schema(
             ref: 'Hotel',
             required: [true, 'Hotel ID is required']
         },
+        initialDate: {
+            type: Date,
+            required: [true, 'Initial Date is required'],
+            validate: {
+                validator: function(value) {
+                    return value > new Date();
+                },
+                message: 'Initial Date must be in the future'
+            }
+        },
+        endDate: {
+            type: Date,
+            required: [true, 'End Date is required'],
+            validate: {
+                validator: function(value) {
+                    return value > this.initialDate;
+                },
+                message: 'End Date must be after Initial Date'
+            }
+        },
         services: [{
             name: {
                 type: String,

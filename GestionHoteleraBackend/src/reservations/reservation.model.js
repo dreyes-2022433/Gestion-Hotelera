@@ -4,8 +4,17 @@ const reservationSchema = Schema(
   {
     type: {
       type: String,
-      enum: ['Habitacion', 'Hotel'],
+      enum: ['Room', 'Hotel'],
       required: [true, 'Reservation type is required']
+    },
+    room : {	
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Room',
+      
+    },
+    hotel: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Hotel',
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

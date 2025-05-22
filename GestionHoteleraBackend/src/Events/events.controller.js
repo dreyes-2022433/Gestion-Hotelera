@@ -1,11 +1,14 @@
 import Event from "./Events.model.js"
 import User from "../user/user.model.js"
 import Hotel from "../Hotel/hotel.model.js"
+import { generateFacture } from "../Facture/facture.controller.js"
 
 export const getEvents = async(req, res)=>{
     try {
         const events = await Event.find()
-
+        if(events.endDate == Date.now()){
+            generateFacture({})
+        }
         return res.send(
             {
                 success: true,
@@ -24,6 +27,10 @@ export const getEvents = async(req, res)=>{
         )
     }
 }
+
+
+
+
 
 export const addEvent = async(req, res)=>{
     try {
@@ -79,7 +86,7 @@ export const addEvent = async(req, res)=>{
 
 export const addService = async(req, res)=>{
     try {
-        const { idEvent } = req.params
+        const { idEvent } = req.body
         const { name, price, description } = req.body
 
         const serviceName = name.toLowerCase()
