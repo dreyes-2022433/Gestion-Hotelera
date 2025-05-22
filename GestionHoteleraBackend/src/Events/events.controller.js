@@ -34,14 +34,17 @@ export const getEvents = async(req, res)=>{
 
 export const addEvent = async(req, res)=>{
     try {
-        const { eventType, hotel, booker, guests } = req.body
+        const { eventType, hotel, booker, guests, initialDate, endDate, initialValue } = req.body
 
         const addEvent = new Event(
             {
                 eventType,
                 hotel,
                 booker,
-                guests
+                guests,
+                initialDate,
+                endDate,
+                initialValue
             }
         )
 
@@ -86,8 +89,7 @@ export const addEvent = async(req, res)=>{
 
 export const addService = async(req, res)=>{
     try {
-        const { idEvent } = req.body
-        const { name, price, description } = req.body
+        const { idEvent, name, price, description } = req.body
 
         const serviceName = name.toLowerCase()
 
@@ -151,8 +153,7 @@ export const addService = async(req, res)=>{
 
 export const deleteService = async(req, res) =>{
     try {
-        const { idEvent } = req.params
-        const { name } = req.body
+        const { idEvent, name } = req.body
 
         const serviceName = name.toLowerCase()
 
@@ -203,7 +204,7 @@ export const deleteService = async(req, res) =>{
 }
 
 export const deleteEvent = async(req, res)=>{
-    const { idEvent } = req.params
+    const { idEvent } = req.body
 
     const event = await Event.findById(idEvent)
 
@@ -229,8 +230,7 @@ export const deleteEvent = async(req, res)=>{
 
 export const updateEvent = async(req, res) => {
     try {
-        const { idEvent } = req.params
-        const { eventType, hotel, booker, guests, status } = req.body
+        const { idEvent, eventType, hotel, booker, guests, status, initialDate, endDate, initialValue } = req.body
 
         const updatedEvent = await Event.findByIdAndUpdate(
             idEvent,
@@ -239,7 +239,10 @@ export const updateEvent = async(req, res) => {
                 hotel,
                 booker,
                 guests,
-                status
+                status,
+                initialDate,
+                endDate,
+                initialValue
             },
             {
                 new: true,
