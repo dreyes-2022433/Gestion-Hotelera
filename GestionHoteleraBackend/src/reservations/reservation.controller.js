@@ -1,3 +1,4 @@
+import { generateFacture } from '../Facture/facture.controller.js'
 import Reservation from './reservation.model.js'
 import User from '../user/user.model.js'
 
@@ -49,7 +50,14 @@ export const getAllReservations = async (req, res) => {
                 message: 'No reservations found'
             })
         }
-        return res.send({
+                if(reservations.endDate == Date.now()){
+                generateFacture({user: reservations.user, hotel: reservations.hotel,
+                    description: 'Reservation', serviceId: reservations.services._id, serviceType: 
+                    'Reservation', event: null, room: reservations.room,
+                    totaladditionalServices: 0,
+                    totalAmount: 0, totalValue: 0,
+                    paymentStatus: 'Pending'})
+            } return res.send({
             success: true,
             message: 'Reservations found',
             total: reservations.length,

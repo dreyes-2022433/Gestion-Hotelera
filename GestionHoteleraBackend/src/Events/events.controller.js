@@ -7,7 +7,12 @@ export const getEvents = async(req, res)=>{
     try {
         const events = await Event.find()
         if(events.endDate == Date.now()){
-            generateFacture({})
+            generateFacture({user: events.booker, hotel: events.hotel,
+                 description: 'Event', serviceId: events._id, serviceType: 
+                 'Event', event: events._id, room: null,
+                  totaladditionalServices: 0,
+                   totalAmount: 0, totalValue: 0,
+                    paymentStatus: 'Pending'})
         }
         return res.send(
             {
