@@ -6,7 +6,8 @@ import {
   getRooms,
   getRoomById,
   updateRoom,
-  deleteRoom
+  deleteRoom,
+  getRoomsByHotel
 } from './room.controller.js'
 
 const api = Router()
@@ -23,6 +24,11 @@ api.get(
 )
 
 api.get(
+  '/:hotelId',
+  getRoomsByHotel
+)
+
+api.get(
   '/:id',
   getRoomById
 )
@@ -32,6 +38,7 @@ api.put(
   [validateJwt, isAdmin, ],
   updateRoom
 )
+
 
 api.delete(
   '/:id',
