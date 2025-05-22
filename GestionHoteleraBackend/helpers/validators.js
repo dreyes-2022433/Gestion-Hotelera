@@ -58,7 +58,7 @@ export const validUpdateHotel = [
 export const validRegisterReservation = [
     body('type', 'Reservation type cannot be empty')
         .notEmpty()
-        .isIn(['Habitacion', 'Hotel']).withMessage('Reservation type must be valid'),
+        .isIn(['Room', 'Hotel']).withMessage('Reservation type must be valid'),
     body('user', 'User cannot be empty')
         .notEmpty()
         .custom(objectIdValid),
@@ -230,6 +230,16 @@ export const validAddEvent = [
         .notEmpty()
         .isInt({ min: 0 })
         .withMessage('Guests cannot be negative'),
+    body('initialDate', 'initial date cannot be empty')
+        .notEmpty()
+        .isISO8601().withMessage('Initial date must be a valid date'),
+    body('endDate', 'End date cannot be empty')
+        .notEmpty()
+        .isISO8601().withMessage('End date must be a valid date'),
+    body('initialValue', 'Initial value cannot be empty')
+        .notEmpty()
+        .isInt({ min: 0 })
+        .withMessage('The initial value cannot be negative'),
     validateErrorWithoutImg
 ]
 
@@ -242,12 +252,18 @@ export const validAddService = [
         .withMessage('Price cannot be negative'),
     body('description', 'Description cannot be empty')
         .notEmpty(),
+    body('idEvent', 'Id Event cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
     validateErrorWithoutImg
 ]
 
 export const validDeleteService = [
     body('name', 'Name cannot be empty')
         .notEmpty(),
+    body('idEvent', 'Id Event cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
     validateErrorWithoutImg
 ]
 
@@ -273,5 +289,28 @@ export const validUpdateEvent = [
     body('status', 'Status cannot be empty')
         .optional()
         .notEmpty(),
+    body('initialDate', 'initial date cannot be empty')
+        .optional()
+        .notEmpty()
+        .isISO8601().withMessage('Initial date must be a valid date'),
+    body('endDate', 'End date cannot be empty')
+        .optional()
+        .notEmpty()
+        .isISO8601().withMessage('End date must be a valid date'),
+    body('initialValue', 'Initial value cannot be empty')
+        .optional()
+        .notEmpty()
+        .isInt({ min: 0 })
+        .withMessage('The initial value cannot be negative'),
+    body('idEvent', 'Id Event cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
+    validateErrorWithoutImg
+]
+
+export const validDeleteEvent = [
+    body('idEvent', 'ID event cannot be empty')
+        .notEmpty()
+        .custom(objectIdValid),
     validateErrorWithoutImg
 ]
