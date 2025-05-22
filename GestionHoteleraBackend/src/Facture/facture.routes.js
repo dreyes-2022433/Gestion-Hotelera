@@ -1,12 +1,7 @@
 import { Router } from "express"
-import { createFacture, getFactureById, getAllFactures, updateFacture,deleteFacture } from "./facture.controller.js"
+import {  getFactureById, getAllFactures, updateFacture,deleteFacture } from "./facture.controller.js"
 
 const api = Router()
-
-api.post(
-    '/',
-    createFacture
-)
 
 api.get(
     '/:id',
