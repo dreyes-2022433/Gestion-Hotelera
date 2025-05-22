@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import {Box,Heading,SimpleGrid,Spinner,Center,Text,Tag,Stack,Badge,} from '@chakra-ui/react'
+import { 
+  Box, Heading, SimpleGrid, Spinner, Center, Text, Tag, Stack, 
+  Badge, Button, Modal, ModalOverlay, ModalContent, 
+  ModalHeader, ModalCloseButton, ModalBody, useDisclosure 
+} from '@chakra-ui/react'
 
 export const HotelList = () => {
   const [hotels, setHotels] = useState([])
   const [loading, setLoading] = useState(true)
+  const [selectedHotel, setSelectedHotel] = useState(null)
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
     const fetchHotels = async () => {
@@ -20,6 +26,11 @@ export const HotelList = () => {
 
     fetchHotels()
   }, [])
+
+  const handleViewDetails = (hotel) => {
+    setSelectedHotel(hotel)
+    onOpen()
+  }
 
   return (
     <Box maxW="100%" p={8}>
@@ -83,11 +94,75 @@ export const HotelList = () => {
                     {hotel.status ? 'Activo' : 'Inactivo'}
                   </Tag>
                 </Box>
+                
+                {/* Botón Ver Detalles */}
+                <Button 
+                  colorScheme="teal" 
+                  size="sm" 
+                  onClick={() => handleViewDetails(hotel)}
+                >
+                  Ver Detalles
+                </Button>
               </Stack>
             </Box>
           ))}
         </SimpleGrid>
       )}
+
+      {/* Modal para mostrar detalles */}
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Detalles del Hotel</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            {selectedHotel && (
+              <Stack spacing={4}>
+                <Heading size="md">{selectedHotel.name}</Heading>
+                
+                <Box>
+                  <Text fontWeight="bold">Dirección:</Text>
+                  <Text>{selectedHotel.direction}</Text>
+                </Box>
+                
+                <Box>
+                  <Text fontWeight="bold">Categoría:</Text>
+                  <Badge colorScheme="purple">{selectedHotel.category}</Badge>
+                </Box>
+                
+                <Box>
+                  <Text fontWeight="bold">Descripción:</Text>
+                  <Text>{selectedHotel.description}</Text>
+                </Box>
+                
+                <Box>
+                  <Text fontWeight="bold">Servicios:</Text>
+                  <Box display="flex" flexWrap="wrap" gap="6px" mt={2}>
+                    {Array.isArray(selectedHotel.amenities)
+                      ? selectedHotel.amenities.split(',').map((item, idx) => (
+                          <Tag key={idx} size="sm" colorScheme="blue">
+                            {item.trim()}
+                          </Tag>
+                        ))
+                      : (
+                          <Tag size="sm" colorScheme="blue">
+                            {selectedHotel.amenities}
+                          </Tag>
+                        )}
+                  </Box>
+                </Box>
+                
+                <Box>
+                  <Text fontWeight="bold">Estado:</Text>
+                  <Tag colorScheme={selectedHotel.status ? 'green' : 'red'}>
+                    {selectedHotel.status ? 'Activo' : 'Inactivo'}
+                  </Tag>
+                </Box>
+              </Stack>
+            )}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   )
 }
