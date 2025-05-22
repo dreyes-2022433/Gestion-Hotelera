@@ -16,7 +16,7 @@ const eventSchema = new Schema(
         initialDate: {
             type: Date,
             required: [true, 'Initial Date is required'],
-            validate: {
+        validate: {
                 validator: function(value) {
                     return value > new Date();
                 },

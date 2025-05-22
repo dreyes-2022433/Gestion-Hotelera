@@ -5,14 +5,25 @@ import { generateFacture } from "../Facture/facture.controller.js"
 
 export const getEvents = async(req, res)=>{
     try {
+        const factures = await Event.find({endDate: {$lt: Date.now()}})
+
+        console.log(factures)
         const events = await Event.find()
-        if(events.endDate == Date.now()){
-            generateFacture({user: events.booker, hotel: events.hotel,
-                 description: 'Event', serviceId: events._id, serviceType: 
-                 'Event', event: events._id, room: null,
+            .populate('booker', 'name email')
+            .populate('hotel', 'name')
+            .populate('services.name', 'name price description')
+            
+        if(factures){
+            for(let facture of factures){
+            console.log('se esta haciendo la factura')
+          await  generateFacture({user: facture.booker, hotel: facture.hotel,
+                 description: 'Event', serviceId: facture._id, serviceType: 
+                 'Event', event: facture._id, room: null,
                   totaladditionalServices: 0,
                    totalAmount: 0, totalValue: 0,
                     paymentStatus: 'Pending'})
+                    console.log('factura generada')
+          }
         }
         return res.send(
             {

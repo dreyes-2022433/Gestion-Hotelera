@@ -1,66 +1,63 @@
 import Facture from './facture.model.js'
 
-export const generateFacture = async (req, res,user, hotel, description,
-                        serviceId, serviceType, event, room,
-                        totaladditionalServices,
-                        totalAmount,totalValue,paymentStatus) => {  
-    try {   
-            if(event){
-                const newFacture = new Facture({
-                    user,
-                    hotel,
-                    description,
-                    additionalServices: [{
-                        serviceId,
-                        serviceType
-                    }],
-                    event,
-                    totaladditionalServices,
-                    totalAmount,
-                    totalValue,
-                    paymentStatus
-                })
-    
-                await newFacture.save()
-    
-                return res.send({
-                    success: true,
-                    message: 'Facture generated successfully',
-                    facture: newFacture
-                })
-                
-            }
-            if(room){
-                const newFacture = new Facture({
-                    user,
-                    hotel,
-                    description,
-                    additionalServices: [{
-                        serviceId,
-                        serviceType
-                    }],
-                    room,
-                    totaladditionalServices,
-                    totalAmount,
-                    totalValue,
-                    paymentStatus
-                })
-    
-                await newFacture.save()
-    
-                return res.send({
-                    success: true,
-                    message: 'Facture generated successfully',
-                    facture: newFacture
-                })
-            }
-    }catch (err) {
+export const generateFacture = async ({
+    user,
+    hotel,
+    description,
+    serviceId,
+    serviceType,
+    event,
+    room,
+    totaladditionalServices,
+    totalAmount,
+    totalValue,
+    paymentStatus
+}) => {
+    try {
+        if (event) {
+            console.log('event')
+            const newFacture = new Facture({
+                user,
+                hotel,
+                description,
+                additionalServices: [{
+                    serviceId,
+                    serviceType
+                }],
+                event,
+                totaladditionalServices,
+                totalAmount,
+                totalValue,
+                paymentStatus
+            })
+
+            await newFacture.save()
+
+            return newFacture
+        }
+        if (room) {
+            const newFacture = new Facture({
+                user,
+                hotel,
+                description,
+                additionalServices: [{
+                    serviceId,
+                    serviceType
+                }],
+                room,
+                totaladditionalServices,
+                totalAmount,
+                totalValue,
+                paymentStatus
+            })
+
+            await newFacture.save()
+
+            return newFacture
+        }
+    } catch (err) {
         console.error(err)
-        return res.status(500).send({
-            success: false,
-            message: 'Error generating facture',
-            err
-        })
+        throw err
     }
 }
 export const getFactureById = async (req, res) => {
