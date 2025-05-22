@@ -4,7 +4,8 @@ import {
   getAllReservations, 
   getMyReservations, 
   updateReservation, 
-  deleteReservation 
+  deleteReservation, 
+  getUsersReservations
 } from './reservation.controller.js'
 
 import {validRegisterReservation, validUpdateReservation} from '../../helpers/validators.js'
@@ -40,6 +41,11 @@ api.put(
 api.delete(
     '/:id', 
     deleteReservation
+)
+
+api.post(
+    '/getUserReservations',
+    getUsersReservations
 )
 
 export default api
