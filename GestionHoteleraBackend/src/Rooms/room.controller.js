@@ -147,3 +147,22 @@ export const updateRoom = async (req, res) => {
       handleError(res, err)
     }
   }
+
+  // Obtener habitaciones por hotel
+export const getRoomsByHotel = async (req, res) => {
+    try {
+        const { hotelId } = req.params
+        
+        if (!isValidId(hotelId)) {
+            return handleError(res, new Error('Invalid hotel ID'), 400)
+        }
+
+        const rooms = await Room.find({ hotel: hotelId })
+            .select('-__v -createdAt -updatedAt')
+            .lean()
+
+        sendResponse(res, rooms)
+    } catch (err) {
+        handleError(res, err)
+    }
+}
