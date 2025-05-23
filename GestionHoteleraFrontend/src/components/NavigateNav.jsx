@@ -25,9 +25,10 @@ export const NavigationNav = () => {
       <h1>Hotel Paraíso</h1>
       <nav>
         <a href="#">Perfil</a>
-        <a href="Home/Hotelpage" onClick={handleClickHoteles}>Hoteles</a>
+        <a href="/Home/Hotelpage" onClick={handleClickHoteles}>Hoteles</a>
         <a href="#">Servicios</a>
         <a href="#">Contacto</a>
+        <a href="/Home/ReservationPage">Reservaciones</a>
         <button onClick={handleLogout} className="logout-button">
           Cerrar sesión
         </button>

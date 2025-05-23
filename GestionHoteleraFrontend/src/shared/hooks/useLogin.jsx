@@ -38,6 +38,7 @@ export const useLogin = () => {
     const { token, user: userData } = response.data
     localStorage.setItem('token', token)
     localStorage.setItem('user', JSON.stringify(userData))
+    localStorage.setItem('uid', userData._id)
     toast.success("Te has logueado correctamente")
     if (userData.role === 'ADMIN') {
       navigate('/admin')

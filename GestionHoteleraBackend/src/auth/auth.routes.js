@@ -4,7 +4,7 @@ import {validRegisterUser} from '../../helpers/validators.js'
 
 const api = Router()
 
-api.post('/register',[validRegisterUser] ,register)
+api.post('/register',[validRegisterUser] , register)
 api.post('/login', login)
 api.get('/test', test)
 

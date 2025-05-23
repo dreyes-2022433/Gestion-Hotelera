@@ -26,7 +26,7 @@ api.get(
 )
 
 api.get(
-    '/:userId', 
+    '/my/:userId', 
     getMyReservations
 )
 

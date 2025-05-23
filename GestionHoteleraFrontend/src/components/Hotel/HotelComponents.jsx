@@ -17,6 +17,7 @@ import {
 import { motion } from 'framer-motion'
 import { useHotel } from '../../shared/hooks/useHotel'
 import { HotelImage } from './HotelImage'
+import { useNavigate } from 'react-router-dom' 
 
 const MotionBox = motion(chakra.div)
 
@@ -25,6 +26,12 @@ export function HotelComponent() {
   const bgCard = useColorModeValue('white', 'gray.700')
   const borderCard = useColorModeValue('gray.200', 'gray.600')
   const scrollBg = useColorModeValue('gray.50', 'gray.900')
+
+  const navigate = useNavigate() 
+
+  const handleBackToAdmin = () => {
+    navigate('/admin') 
+  }
 
   return (
     <Box
@@ -38,6 +45,18 @@ export function HotelComponent() {
       display="flex"
       flexDirection="column"
     >
+      <Flex mb="1.5em">
+        <Button
+          onClick={handleBackToAdmin}
+          colorScheme="teal"
+          size="md"
+          borderRadius="2em"
+          fontWeight="semibold"
+        >
+          ← Volver a opciones admin
+        </Button>
+      </Flex>
+
       <Heading
         textAlign="center"
         mb="1.5em"

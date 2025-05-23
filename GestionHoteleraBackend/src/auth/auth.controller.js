@@ -40,11 +40,20 @@ export const login = async (req, res) => {
 
     const token = jwt.sign({ uid: user._id }, process.env.SECRET_KEY, { expiresIn: '4h' })
 
-    res.json({ token, user })
+    res.json({
+      token,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    })
   } catch (err) {
     res.status(500).json({ message: 'Login failed', error: err.message })
   }
 }
+
 
 // Ruta protegida (para cuando actives JWT)
 export const test = (req, res) => {
