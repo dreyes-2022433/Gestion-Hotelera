@@ -75,6 +75,12 @@ export const HotelList = () => {
               _hover={{ boxShadow: 'lg', transform: 'scale(1.02)' }}
               transition="all 0.2s ease-in-out"
             >
+              <Image
+                borderRadius='full'
+                boxSize='150px'
+                src={hotel.imageUrl}
+                alt='Dan Abramov'
+              />
               <Stack spacing={3}>
                 <Heading size="md" color="teal.700">
                   {hotel.name}

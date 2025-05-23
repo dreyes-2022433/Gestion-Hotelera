@@ -12,7 +12,8 @@ import {
   Divider,
   useColorModeValue,
   chakra,
-  Textarea
+  Textarea,
+  Image
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { useHotel } from '../../shared/hooks/useHotel'
@@ -76,6 +77,12 @@ export function HotelComponent() {
         <Input placeholder="Email" name="email" value={form.email} onChange={handleChange} />
         <Input placeholder="Servicios (amenities)" name="amenities" value={form.amenities} onChange={handleChange} />
         <Textarea placeholder="Descripción" name="description" value={form.description} onChange={handleChange} resize="vertical" />
+        <Image
+  borderRadius='full'
+  boxSize='150px'
+  src={form.imageUrl}
+  alt='Dan Abramov'
+/>
       </SimpleGrid>
 
       <Flex justifyContent="center" mb="2em">
