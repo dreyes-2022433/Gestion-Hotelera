@@ -18,21 +18,22 @@ import {
 import { motion } from 'framer-motion'
 import { useHotel } from '../../shared/hooks/useHotel'
 import { HotelImage } from './HotelImage'
-import { useNavigate } from 'react-router-dom' 
+import { useNavigate } from 'react-router-dom'
+
 
 const MotionBox = motion(chakra.div)
 
 export function HotelComponent() {
   const { hotels, form, loading, handleChange, addHotel, removeHotel } = useHotel()
+  const navigate = useNavigate()
+  const handleGoBack = () => {
+    navigate('/admin') 
+  }
+
   const bgCard = useColorModeValue('white', 'gray.700')
   const borderCard = useColorModeValue('gray.200', 'gray.600')
   const scrollBg = useColorModeValue('gray.50', 'gray.900')
-
-  const navigate = useNavigate() 
-
-  const handleBackToAdmin = () => {
-    navigate('/admin') 
-  }
+  
 
   return (
     <Box
@@ -46,18 +47,9 @@ export function HotelComponent() {
       display="flex"
       flexDirection="column"
     >
-      <Flex mb="1.5em">
-        <Button
-          onClick={handleBackToAdmin}
-          colorScheme="teal"
-          size="md"
-          borderRadius="2em"
-          fontWeight="semibold"
-        >
-          ← Volver a opciones admin
-        </Button>
-      </Flex>
-
+      <Button colorScheme="blue" onClick={handleGoBack}>
+                  ← Volver a Opciones Admin
+                </Button>
       <Heading
         textAlign="center"
         mb="1.5em"
@@ -77,12 +69,7 @@ export function HotelComponent() {
         <Input placeholder="Email" name="email" value={form.email} onChange={handleChange} />
         <Input placeholder="Servicios (amenities)" name="amenities" value={form.amenities} onChange={handleChange} />
         <Textarea placeholder="Descripción" name="description" value={form.description} onChange={handleChange} resize="vertical" />
-        <Image
-  borderRadius='full'
-  boxSize='150px'
-  src={form.imageUrl}
-  alt='Dan Abramov'
-/>
+        
       </SimpleGrid>
 
       <Flex justifyContent="center" mb="2em">
@@ -127,7 +114,8 @@ export function HotelComponent() {
         <Box
           flex="1"
           overflowY="auto"
-          maxH="60vh"
+          maxH="70vh"
+          maxW='130vh'
           pr="0.5em"
           bg={scrollBg}
           borderRadius="0.8em"
@@ -135,7 +123,7 @@ export function HotelComponent() {
           px="1.5em"
           py="2em"
         >
-          <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing="1.5em" minChildWidth="14em">
+          <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing="10.5em" minChildWidth="14em">
             {hotels
             .filter(hotel => hotel && hotel._id)
             .map(({ _id, name, direction, category, phone, email }) => (
@@ -145,6 +133,7 @@ export function HotelComponent() {
                 border={`0.1em solid ${borderCard}`}
                 borderRadius="1em"
                 p="1.5em"
+                width='50vh'
                 boxShadow="md"
                 whileHover={{
                   scale: 1.03,
