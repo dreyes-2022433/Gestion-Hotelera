@@ -2,51 +2,71 @@ import Event from "./Events.model.js"
 import User from "../user/user.model.js"
 import Hotel from "../Hotel/hotel.model.js"
 import { generateFacture } from "../Facture/facture.controller.js"
+import Facture from '../Facture/facture.model.js'
 
-export const getEvents = async(req, res)=>{
+export const getEvents = async (req, res) => {
     try {
-        const factures = await Event.find({endDate: {$lt: Date.now()}})
+        const factures = await Event.find({ endDate: { $lt: Date.now() } })
 
-        console.log(factures)
+        console.log(factures);
+
         const events = await Event.find()
             .populate('booker', 'name email')
             .populate('hotel', 'name')
-            .populate('services.name', 'name price description')
-            
-        if(factures){
-            for(let facture of factures){
-            console.log('se esta haciendo la factura')
-          await  generateFacture({user: facture.booker, hotel: facture.hotel,
-                 description: 'Event', serviceId: facture._id, serviceType: 
-                 'Event', event: facture._id, room: null,
-                  totaladditionalServices: 0,
-                   totalAmount: 0, totalValue: 0,
-                    paymentStatus: 'Pending'})
-                    console.log('factura generada')
-          }
+            .populate('services.name', 'name price description');
+
+        if (factures && factures.length > 0) {
+            for (let facture of factures) {
+
+                const alreadyExists = await Facture.findOne({ event: facture._id })
+
+                if (alreadyExists) {
+                    console.log(`Factura ya existe para el evento ${facture._id}`)
+                    continue
+                }
+
+                console.log('Se está generando la factura');
+
+                const totaladditionalServices = facture.services.reduce(
+                    (acc, service) => acc + (service.price || 0),
+                    0
+                )
+
+                const totalValue = facture.initialValue || 0
+                const totalAmount = totaladditionalServices + totalValue
+
+                await generateFacture({
+                    user: facture.booker,
+                    hotel: facture.hotel,
+                    description: 'Event',
+                    serviceId: facture._id,
+                    serviceType: 'Event',
+                    event: facture._id,
+                    room: null,
+                    totaladditionalServices,
+                    totalValue,
+                    totalAmount,
+                    paymentStatus: 'Pending'
+                })
+
+                console.log('Factura generada')
+            }
         }
-        return res.send(
-            {
-                success: true,
-                message: 'Events found',
-                events
-            }
-        )
+
+        return res.send({
+            success: true,
+            message: 'Events found',
+            events
+        });
     } catch (err) {
-        console.error(err)
-        return res.status(500).send(
-            {
-                status: false,
-                message: 'General Error',
-                err
-            }
-        )
+        console.error(err);
+        return res.status(500).send({
+            status: false,
+            message: 'General Error',
+            err
+        });
     }
 }
-
-
-
-
 
 export const addEvent = async(req, res)=>{
     try {
