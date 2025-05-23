@@ -23,7 +23,7 @@ const factureSchema = Schema(
             },
             serviceType: {
                 type: String,
-                enum: ['Room', 'Event'],
+                enum: ['Room', 'Event', 'Reservation'],
                 required: [true, 'Service Type is required']
             },
     }],
