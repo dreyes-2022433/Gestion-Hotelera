@@ -1,6 +1,7 @@
 import { generateFacture } from '../Facture/facture.controller.js'
 import Reservation from './reservation.model.js'
 import User from '../user/user.model.js'
+import Facture from '../Facture/facture.model.js'
 
 export const registerReservation = async (req, res) => {
     try {
@@ -34,44 +35,88 @@ export const registerReservation = async (req, res) => {
         )
     }
 }
-  
 
 export const getAllReservations = async (req, res) => {
-    const { limit, skip } = req.query
+    const { limit = 10, skip = 0 } = req.query
+
     try {
         const reservations = await Reservation.find()
-            .skip(skip)
-            .limit(limit)
-            .populate('user', 'name email') 
-    
-        if (reservations.length === 0) {
+            .skip(parseInt(skip))
+            .limit(parseInt(limit))
+            .populate('user', 'name email')
+            .populate('hotel', 'name')
+            .populate('room', 'number')
+
+        if (!reservations.length) {
             return res.send({
                 success: false,
                 message: 'No reservations found'
             })
         }
-                if(reservations.endDate == Date.now()){
-                generateFacture({user: reservations.user, hotel: reservations.hotel,
-                    description: 'Reservation', serviceId: reservations.services._id, serviceType: 
-                    'Reservation', event: null, room: reservations.room,
-                    totaladditionalServices: 0,
-                    totalAmount: 0, totalValue: 0,
-                    paymentStatus: 'Pending'})
-            } return res.send({
+
+        for (let reservation of reservations) {
+            const endDateTime = new Date(reservation.endDate).getTime()
+            const now = Date.now()
+
+            console.log(`Verificando reservación ${reservation._id}`)
+            console.log(`EndDate: ${reservation.endDate}, Timestamp: ${endDateTime}, Now: ${now}`)
+
+            if (endDateTime <= now) {
+                const alreadyExists = await Facture.findOne({
+                    serviceId: reservation._id,
+                    serviceType: 'Reservation'
+                });
+
+                if (alreadyExists) {
+                    console.log(`Factura ya existe para la reservación ${reservation._id}`)
+                    continue;
+                }
+
+                console.log(`Generando factura para la reservación ${reservation._id}`)
+
+                const totaladditionalServices = reservation.services.reduce(
+                    (acc, service) => acc + (service.price || 0),
+                    0
+                )
+
+                const totalValue = 0;
+                const totalAmount = totaladditionalServices + totalValue
+
+                try {
+                    await generateFacture({
+                        user: reservation.user,
+                        hotel: reservation.hotel,
+                        description: 'Reservation',
+                        serviceId: reservation._id,
+                        serviceType: 'Reservation',
+                        event: null,
+                        room: reservation.room,
+                        totaladditionalServices,
+                        totalValue,
+                        totalAmount,
+                        paymentStatus: 'Pending'
+                    })
+                    console.log('Factura generada con éxito')
+                } catch (err) {
+                    console.error('Error al generar factura:', err)
+                }
+            }
+        }
+
+        return res.send({
             success: true,
             message: 'Reservations found',
             total: reservations.length,
             reservations
         })
-        }catch (err) {
+
+    } catch (err) {
         console.error(err)
-        return res.status(500).send(
-            {
+        return res.status(500).send({
             success: false,
             message: 'General Error',
             err
-            }
-        )
+        })
     }
 }
 
