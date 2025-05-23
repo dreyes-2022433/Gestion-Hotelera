@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { useHotel } from '../../shared/hooks/useHotel'
+import { HotelImage } from './HotelImage'
 
 const MotionBox = motion(chakra.div)
 
@@ -109,7 +110,9 @@ export function HotelComponent() {
           py="2em"
         >
           <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing="1.5em" minChildWidth="14em">
-            {hotels.map(({ _id, name, direction, category, phone, email }) => (
+            {hotels
+            .filter(hotel => hotel && hotel._id)
+            .map(({ _id, name, direction, category, phone, email }) => (
               <MotionBox
                 key={_id}
                 bg={bgCard}
@@ -138,6 +141,7 @@ export function HotelComponent() {
                 <Text fontSize="1em" color="gray.500" noOfLines={1}>
                   Email: {email}
                 </Text>
+                <HotelImage hotelId={_id} />
                 <Button
                   mt="1em"
                   colorScheme="red"

@@ -47,7 +47,11 @@ const hotelSchema = Schema(
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
-        }
+        },
+        imageUrl: {
+            type: String, 
+            default: 'https://res.cloudinary.com/dxvwrech8/image/upload/v1747967237/hdkr4ldjpdtypq25d6p3.png'
+        },
     }
 )
 
