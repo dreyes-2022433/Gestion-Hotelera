@@ -11,12 +11,21 @@ export const NavigationNav = () => {
     navigate('/', { replace: true })
   }
 
+  const handleClickHoteles = (e) => {
+    const currentPath = window.location.pathname.toLowerCase()
+    const hotelesPath = "/home/hotelpage"
+
+    if (currentPath === hotelesPath) {
+      e.preventDefault()
+    }
+  }
+
   return (
     <header>
       <h1>Hotel Paraíso</h1>
       <nav>
         <a href="#">Perfil</a>
-        <a href="Home/Hotelpage">Hoteles</a>
+        <a href="Home/Hotelpage" onClick={handleClickHoteles}>Hoteles</a>
         <a href="#">Servicios</a>
         <a href="#">Contacto</a>
         <button onClick={handleLogout} className="logout-button">
